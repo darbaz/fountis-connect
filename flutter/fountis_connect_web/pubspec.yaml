@@ -1,0 +1,29 @@
+name: fountis_connect_web
+description: Web implementation of fountis_connect. Wraps the FOUNTIS Connect Web SDK (connect.js) through dart:js_interop.
+version: 1.0.0
+homepage: https://github.com/darbaz/fountis-connect
+repository: https://github.com/darbaz/fountis-connect/tree/main/flutter/fountis_connect_web
+issue_tracker: https://github.com/darbaz/fountis-connect/issues
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+flutter:
+  plugin:
+    implements: fountis_connect
+    platforms:
+      web:
+        pluginClass: FountisConnectWeb
+        fileName: fountis_connect_web.dart
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  fountis_connect_platform_interface: ^1.0.0
+  web: ^1.0.0
+
+dev_dependencies:
+  flutter_lints: ^5.0.0

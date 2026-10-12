@@ -1,0 +1,12 @@
+.dart_tool/
+.packages
+pubspec.lock
+build/
+# The example's runner projects are generated (see README); keep the committed example to lib/ and pubspec.
+fountis_connect/example/android/
+fountis_connect/example/ios/
+fountis_connect/example/web/
+fountis_connect/example/test/
+fountis_connect/example/.metadata
+fountis_connect/example/.gitignore
+fountis_connect/.metadata

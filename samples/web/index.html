@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acme Phone: FOUNTIS Connect web sample</title>
+  <style>
+    body{margin:0;font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f6f9f8;color:#101915}
+    main{max-width:560px;margin:0 auto;padding:40px 20px}
+    .card{background:#fff;border:1px solid #e3eae7;border-radius:16px;padding:20px;margin-top:16px}
+    button{font:inherit;font-weight:700;border:0;border-radius:12px;height:44px;padding:0 18px;background:#5dc0a0;color:#101915;cursor:pointer}
+    pre{background:#101915;color:#c9d4cf;border-radius:12px;padding:12px;overflow:auto;font-size:12.5px;white-space:pre-wrap;overflow-wrap:anywhere}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Acme Phone</h1>
+  <p>A made-up partner page. It loads the built <code>connect.js</code> and uses a sandbox key.</p>
+  <div class="card">
+    <p>Fake signed-in user: a 33-year-old woman in Erbil.</p>
+    <button id="show">Show a study now</button>
+    <pre id="log">events appear here…</pre>
+  </div>
+</main>
+
+<script src="config.local.js"></script>
+<script>
+  if (!window.FOUNTIS_SAMPLE) document.getElementById("log").textContent = "Copy config.example.js to config.local.js and set your sandbox key.";
+</script>
+<!-- Local build of the SDK; in a real page use the hosted file or npm i @fountispanel/connect -->
+<script src="../../web/dist/connect.js"></script>
+<script>
+  const cfg = window.FOUNTIS_SAMPLE;
+  if (cfg) {
+    const log = (m) => { const el = document.getElementById("log"); el.textContent = m + "\n" + (el.textContent.startsWith("events") ? "" : el.textContent); };
+
+    // Sandbox only: an unsigned token (alg "none") for a fake user. A real page asks its own server
+    // for a signed token (see ../server-node).
+    const b64 = (o) => btoa(JSON.stringify(o)).replace(/=+$/, "").replace(/\+/g, "-").replace(/\//g, "_");
+    function sandboxToken() {
+      const iat = Math.floor(Date.now() / 1000);
+      return b64({ alg: "none", typ: "JWT" }) + "." + b64({
+        iss: cfg.partnerId, aud: "fountis-connect:" + cfg.appId,
+        sub: "sandbox_user_0001_AAAAAAAAAAAAAAAA", kyc: "verified",
+        attrs: { gender: "female", birth_year: new Date().getFullYear() - 33, governorate: "erbil", city: "erbil", lang: "en" },
+        mapping_version: 1, iat, exp: iat + 3600, jti: Math.random().toString(36).slice(2),
+      }) + ".";
+    }
+
+    const opts = { key: cfg.key };
+    if (cfg.apiBase) opts.apiBase = cfg.apiBase;
+    if (cfg.engineUrl) opts.engineUrl = cfg.engineUrl;
+    FountisConnect.start(opts);
+    FountisConnect.setUserToken(() => sandboxToken());
+    FountisConnect.onEvent((e) => log(JSON.stringify(e)));
+    FountisConnect.enableNotifications();      // the teaser also appears by itself after page load
+    document.getElementById("show").onclick = async () => log("show() -> " + await FountisConnect.show());
+  }
+</script>
+</body>
+</html>

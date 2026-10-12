@@ -1,0 +1,25 @@
+name: fountis_connect_mobile
+description: iOS and Android implementation of fountis_connect. Wraps the native FOUNTIS Connect SDKs (Swift and Kotlin).
+version: 1.0.0
+homepage: https://github.com/darbaz/fountis-connect
+repository: https://github.com/darbaz/fountis-connect/tree/main/flutter/fountis_connect_mobile
+issue_tracker: https://github.com/darbaz/fountis-connect/issues
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+flutter:
+  plugin:
+    implements: fountis_connect
+    platforms:
+      android:
+        package: org.fountis.connect.flutter
+        pluginClass: FountisConnectPlugin
+      ios:
+        pluginClass: FountisConnectPlugin
+
+dependencies:
+  flutter:
+    sdk: flutter
+  fountis_connect_platform_interface: ^1.0.0

@@ -1,0 +1,17 @@
+{
+  "name": "fountis-connect-rn-sample",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "ios": "expo run:ios",
+    "android": "expo run:android",
+    "prebuild": "expo prebuild --clean"
+  },
+  "dependencies": {
+    "@fountispanel/connect-react-native": "file:../../react-native",
+    "expo": "~57.0.0",
+    "react": "19.2.3",
+    "react-native": "0.86.3"
+  }
+}

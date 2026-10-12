@@ -1,0 +1,6 @@
+# pub otherwise applies .gitignore, which excludes the vendored native SDK copies that this package must ship
+# (made by ../scripts/vendor-native.sh before `flutter pub publish`).
+.dart_tool/
+.packages
+pubspec.lock
+build/

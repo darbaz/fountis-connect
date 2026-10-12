@@ -1,0 +1,196 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+		750B2627EEC619F74B5056FD /* SampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/SampleApp.swift; sourceTree = "<group>"; };
+		E4E317055BBEE1EA738E0448 /* SampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B2627EEC619F74B5056FD; };
+		4D2D059072C1E33E64D7DCDF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/ContentView.swift; sourceTree = "<group>"; };
+		62ADFAF7EDC910F8379C61C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2D059072C1E33E64D7DCDF; };
+		7C233D6D7910C75F0E35A262 /* Config.local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Config.local.swift; sourceTree = "<group>"; };
+		3258EAC70965375482ED2658 /* Config.local.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C233D6D7910C75F0E35A262; };
+		3929905265571381EA452713 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2A57DC1D883FD21FB995169 /* FountisConnectSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FountisConnectSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D866AE423E9839CC584F4CF2 /* FountisConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 2BAFBE90D711F96380E9193E; };
+		4F6F5CC3FCCF73F75AE9CCF4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D866AE423E9839CC584F4CF2 /* FountisConnect in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2AB5FB218DA8B84623F4557 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4E317055BBEE1EA738E0448,
+				62ADFAF7EDC910F8379C61C6,
+				3258EAC70965375482ED2658,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55B558C7EF820E6E00E5993B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB0F6F37EBEB6EA094891243 = {
+			isa = PBXGroup;
+			children = (
+				750B2627EEC619F74B5056FD,
+				4D2D059072C1E33E64D7DCDF,
+				7C233D6D7910C75F0E35A262,
+				3929905265571381EA452713,
+				86024CAD1E83101D97359D73,
+			);
+			sourceTree = "<group>";
+		};
+		86024CAD1E83101D97359D73 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2A57DC1D883FD21FB995169,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		42AEFBAE01D2DFD981F7DA7D /* FountisConnectSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 16B36AFD00302EC1CB39BFDE;
+			buildPhases = (
+				F2AB5FB218DA8B84623F4557,
+				4F6F5CC3FCCF73F75AE9CCF4,
+				55B558C7EF820E6E00E5993B,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FountisConnectSample;
+			packageProductDependencies = (
+				2BAFBE90D711F96380E9193E,
+			);
+			productName = FountisConnectSample;
+			productReference = D2A57DC1D883FD21FB995169;
+			productType = "com.apple.product-type.application";
+		};
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = 69928A538C279294B2B0A8FA;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DB0F6F37EBEB6EA094891243;
+			packageReferences = (
+				00399ED3B3FA2FCA129B1CCE,
+			);
+			productRefGroup = 86024CAD1E83101D97359D73;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				42AEFBAE01D2DFD981F7DA7D,
+			);
+		};
+		631B07C239775609B16C3F39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CD05A4BAE4B61E6049E1AB09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		EF2AF6B5BA0F4AA2F9F864D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_ALLOWED = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.fountis.connect.sample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FCB993019D56889ED710680E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_ALLOWED = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.fountis.connect.sample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		69928A538C279294B2B0A8FA = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				631B07C239775609B16C3F39,
+				CD05A4BAE4B61E6049E1AB09,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		16B36AFD00302EC1CB39BFDE = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF2AF6B5BA0F4AA2F9F864D5,
+				FCB993019D56889ED710680E,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		00399ED3B3FA2FCA129B1CCE /* XCLocalSwiftPackageReference "../../ios" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../ios;
+		};
+		2BAFBE90D711F96380E9193E /* FountisConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FountisConnect;
+		};
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}

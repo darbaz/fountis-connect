@@ -1,0 +1,8 @@
+node_modules/
+samples/web/config.local.js
+.DS_Store
+# Sandbox keys and local state never leave this machine
+samples/.sandbox-keys.local.json
+*.local.json
+.build/
+.swiftpm/

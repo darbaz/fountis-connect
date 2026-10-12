@@ -1,0 +1,5 @@
+Sources/Config.local.swift
+build/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/

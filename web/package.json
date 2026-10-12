@@ -1,0 +1,58 @@
+{
+  "name": "@fountispanel/connect",
+  "version": "1.0.0",
+  "description": "FOUNTIS Connect web SDK: show partner users a short study teaser and run it in a modal.",
+  "license": "SEE LICENSE IN LICENSE",
+  "type": "module",
+  "main": "dist/connect.cjs",
+  "module": "dist/connect.esm.js",
+  "types": "dist/connect.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/connect.d.ts",
+      "import": "./dist/connect.esm.js",
+      "require": "./dist/connect.cjs"
+    }
+  },
+  "files": [
+    "dist/connect.js",
+    "dist/connect.esm.js",
+    "dist/connect.cjs",
+    "dist/connect.d.ts",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node test/run.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "jsdom": "^26.1.0",
+    "typescript": "^5"
+  },
+  "author": "FOUNTIS",
+  "homepage": "https://github.com/darbaz/fountis-connect#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darbaz/fountis-connect.git",
+    "directory": "web"
+  },
+  "bugs": {
+    "url": "https://github.com/darbaz/fountis-connect/issues",
+    "email": "dev@fountis.org"
+  },
+  "keywords": [
+    "fountis",
+    "connect",
+    "survey",
+    "research",
+    "sdk"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

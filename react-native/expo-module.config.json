@@ -1,0 +1,10 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["FountisConnectModule"],
+    "appDelegateSubscribers": ["FountisConnectAppDelegateSubscriber"]
+  },
+  "android": {
+    "modules": ["org.fountis.connect.rn.FountisConnectModule"]
+  }
+}

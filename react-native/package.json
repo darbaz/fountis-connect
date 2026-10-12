@@ -1,0 +1,69 @@
+{
+  "name": "@fountispanel/connect-react-native",
+  "version": "1.0.0",
+  "description": "FOUNTIS Connect for React Native and Expo (development builds): native iOS and Android SDKs, Web SDK on React Native Web.",
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build",
+    "src",
+    "ios",
+    "android",
+    "app.plugin.js",
+    "expo-module.config.json",
+    "scripts",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit",
+    "prepack": "npm run build && sh scripts/vendor-native.sh",
+    "prepublishOnly": "npm run typecheck && npm run build && sh scripts/vendor-native.sh"
+  },
+  "keywords": [
+    "fountis",
+    "survey",
+    "expo",
+    "react-native",
+    "sdk"
+  ],
+  "peerDependencies": {
+    "expo": ">=52",
+    "expo-modules-core": "*",
+    "react": "*",
+    "react-native": "*",
+    "@fountispanel/connect": "^1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@fountispanel/connect": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@expo/config-plugins": "*",
+    "@types/react": "^19",
+    "expo": "*",
+    "expo-modules-core": "*",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
+    "typescript": "^5",
+    "@fountispanel/connect": "file:../web"
+  },
+  "author": "FOUNTIS",
+  "homepage": "https://github.com/darbaz/fountis-connect#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darbaz/fountis-connect.git",
+    "directory": "react-native"
+  },
+  "bugs": {
+    "url": "https://github.com/darbaz/fountis-connect/issues",
+    "email": "dev@fountis.org"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "FountisConnectSample",
+    "slug": "fountis-connect-rn-sample",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "ios": { "bundleIdentifier": "org.fountis.connect.sample.rn", "supportsTablet": false },
+    "android": { "package": "org.fountis.connect.sample.rn" },
+    "plugins": [
+      ["@fountispanel/connect-react-native", { "key": "pk_test_REPLACE_ME" }]
+    ]
+  }
+}
