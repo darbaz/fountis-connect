@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'org.fountis'
-version = '1.0.0'
+version = '1.1.0'
 
 // In this repository the Kotlin SDK is next to this package. In the npm package, scripts/vendor-native.sh
 // copies it to android/connect-sdk (run automatically on `npm pack`).
@@ -16,7 +16,7 @@ android {
   namespace 'org.fountis.connect'
   defaultConfig {
     versionCode 1
-    versionName '1.0.0'
+    versionName '1.1.0'
   }
   sourceSets {
     main {
@@ -33,4 +33,5 @@ dependencies {
   implementation 'androidx.webkit:webkit:1.12.1'
   implementation 'androidx.lifecycle:lifecycle-process:2.8.7'
   implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
+  implementation 'com.google.android.play:integrity:1.6.0'
 }

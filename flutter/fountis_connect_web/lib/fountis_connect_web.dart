@@ -9,7 +9,7 @@ import 'package:web/web.dart' as web;
 /// Web implementation: calls the Web SDK (`connect.js`, global `FountisConnect`).
 ///
 /// Add the script to `web/index.html`:
-/// `<script src="https://cdn.fountis.org/connect/1.0.0/connect.js"></script>`
+/// `<script src="https://cdn.fountis.org/connect/1.1.0/connect.js"></script>`
 /// If it is missing, this plugin loads it from [scriptUrl] on first use.
 class FountisConnectWeb extends FountisConnectPlatform {
   static void registerWith(Registrar registrar) {
@@ -17,7 +17,7 @@ class FountisConnectWeb extends FountisConnectPlatform {
   }
 
   /// Where the Web SDK is loaded from when the page did not include it.
-  static String scriptUrl = 'https://cdn.fountis.org/connect/1.0.0/connect.js';
+  static String scriptUrl = 'https://cdn.fountis.org/connect/1.1.0/connect.js';
 
   final StreamController<FountisEvent> _events = StreamController<FountisEvent>.broadcast();
   Future<JSObject?>? _loading;

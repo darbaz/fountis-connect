@@ -4,6 +4,8 @@ struct APIError: Error {
     let status: Int
     let code: String
     let message: String
+    /// The reply's optional `reason` field (for example `unknown_key` on `attest_invalid`); empty when absent.
+    var reason: String = ""
 
     /// Errors that end the attempt for good (the engine shows the matching screen).
     var isFatal: Bool { ["invalid_token", "not_eligible", "already_taken", "closed", "quota_full"].contains(code) }
@@ -14,7 +16,7 @@ struct APIError: Error {
 /// Every request has a total deadline (`requestDeadline`, 15 s): connection, request and the whole response body. When it
 /// passes the call fails with `URLError(.timedOut)`, the same error a URLSession timeout raises, so it ends as `noFill`
 /// the way a timeout always did.
-final class ApiClient {
+final class ApiClient: Sendable {
     let base: URL
     let key: String
     let session: URLSession
@@ -58,12 +60,13 @@ final class ApiClient {
         let (data, resp) = try await runWithinDeadline(deadline) { [session] in try await session.data(for: sent) }
         let status = (resp as? HTTPURLResponse)?.statusCode ?? 0
         if (200..<300).contains(status) { return data }
-        var code = "http_\(status)", message = ""
+        var code = "http_\(status)", message = "", reason = ""
         if let o = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
             code = (o["error"] as? String) ?? code
             message = (o["message"] as? String) ?? ""
+            reason = (o["reason"] as? String) ?? ""
         }
-        throw APIError(status: status, code: code, message: message)
+        throw APIError(status: status, code: code, message: message, reason: reason)
     }
 
     private func object(_ data: Data) throws -> [String: Any] {
@@ -85,10 +88,31 @@ final class ApiClient {
     }
 
     /// Guests: the install id in, a short-lived guest session token out. 403 `guests_not_allowed` when the app has guests off.
-    func guestSession(installId: String) async throws -> String {
-        let o = try object(await request("POST", "guest/session", body: ["install_id": installId]))
+    /// `attest` is the device attestation (or why there is none), sent only when the app asked for it (see `Attestor`).
+    /// 403 `attestation_required` / `attestation_failed` when the app enforces attestation and it is missing / invalid.
+    func guestSession(installId: String, attest: AttestEvidence? = nil) async throws -> String {
+        var body: [String: Any] = ["install_id": installId]
+        if let attest { body["attest"] = attest.json }
+        let o = try object(await request("POST", "guest/session", body: body))
         guard let s = o["guest_session"] as? String else { throw APIError(status: 0, code: "bad_response", message: "no session") }
         return s
+    }
+
+    /// A single-use challenge for an attestation or assertion (key header only, no body).
+    func attestChallenge() async throws -> String {
+        let o = try object(await request("POST", "attest/challenge"))
+        guard let c = o["challenge"] as? String, !c.isEmpty else { throw APIError(status: 0, code: "bad_response", message: "no challenge") }
+        return c
+    }
+
+    /// Registers an App Attest key for this install. 400 `attest_invalid`, 410 `challenge_expired`.
+    func attestRegister(installId: String, keyId: String, attestation: Data, challenge: String) async throws {
+        _ = try await request("POST", "attest/ios/register", body: [
+            "install_id": installId,
+            "key_id": keyId,
+            "attestation": attestation.base64EncodedString(),
+            "challenge": challenge,
+        ])
     }
 
     func createGuestAttempt(offerId: String, guestSession: String, lang: String) async throws -> [String: Any] {

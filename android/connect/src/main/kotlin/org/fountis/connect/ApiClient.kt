@@ -15,6 +15,12 @@ internal class ApiError(val status: Int, val code: String, override val message:
     /** Errors that end the attempt for good (the engine shows the matching screen). */
     val isFatal: Boolean get() = code in FATAL
 
+    /**
+     * FOUNTIS refused this install a guest session because it could not vouch for the device (`attestation_required`: nothing
+     * usable was sent; `attestation_failed`: what was sent did not check out). The SDK offers no guest studies then.
+     */
+    val isAttestationRefusal: Boolean get() = status == 403 && (code == "attestation_required" || code == "attestation_failed")
+
     companion object {
         val FATAL = setOf("invalid_token", "not_eligible", "already_taken", "closed", "quota_full")
     }
@@ -131,10 +137,22 @@ internal class ApiClient(base: String, val key: String, private val deadlineMs: 
     suspend fun createAttempt(offerId: String, token: String, lang: String): JSONObject =
         obj(io { request("POST", "attempts", body = JSONObject().put("offer_id", offerId).put("token", token).put("lang", lang)) })
 
-    /** Guests: the install id in, a short-lived guest session token out. 403 `guests_not_allowed` when the app has guests off. */
-    suspend fun guestSession(installId: String): String {
-        val o = obj(io { request("POST", "guest/session", body = JSONObject().put("install_id", installId)) })
+    /**
+     * Guests: the install id in, a short-lived guest session token out. 403 `guests_not_allowed` when the app has guests off.
+     * [attest] is the device attestation object when the app asks for one (see [GuestAttestation]); null sends the install id alone.
+     * 403 `attestation_required` / `attestation_failed` when FOUNTIS requires an attestation it did not get (see [ApiError.isAttestationRefusal]).
+     */
+    suspend fun guestSession(installId: String, attest: JSONObject? = null): String {
+        val body = JSONObject().put("install_id", installId)
+        if (attest != null) body.put("attest", attest)
+        val o = obj(io { request("POST", "guest/session", body = body) })
         return o.optString("guest_session", "").ifEmpty { throw ApiError(0, "bad_response", "no session") }
+    }
+
+    /** Guest attestation: a single-use challenge (32 random bytes, base64url) for the next guest session. Key header only. */
+    suspend fun attestChallenge(): String {
+        val o = obj(io { request("POST", "attest/challenge", body = JSONObject()) })
+        return o.optString("challenge", "").ifEmpty { throw ApiError(0, "bad_response", "no challenge") }
     }
 
     suspend fun createGuestAttempt(offerId: String, guestSession: String, lang: String): JSONObject =

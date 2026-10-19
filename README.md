@@ -1,12 +1,12 @@
 # FOUNTIS Connect
 
 FOUNTIS Connect is an SDK that lets partner apps and websites show FOUNTIS research studies to matching users, inside
-the partner's own app. This repository holds the public SDK sources. Current release: **1.0.0**.
+the partner's own app. This repository holds the public SDK sources. Current release: **1.1.0**.
 
 | Platform | Install | Source |
 |---|---|---|
 | iOS (Swift Package Manager) | `https://github.com/darbaz/fountis-connect`, product `FountisConnect`, iOS 15+ | [ios](ios) |
-| Android (Kotlin) | `org.fountis:connect:1.0.0` on Maven Central | [android](android) |
+| Android (Kotlin) | `org.fountis:connect:1.1.0` on Maven Central | [android](android) |
 | Flutter | `flutter pub add fountis_connect` | [flutter](flutter) |
 | React Native / Expo | `npm i @fountispanel/connect-react-native` | [react-native](react-native) |
 | Web | `npm i @fountispanel/connect`, or a script tag from the CDN | [web](web) |
@@ -20,7 +20,7 @@ Packages are published to their registries when a release is cut; until then, us
 In Xcode choose File > Add Package Dependencies and enter `https://github.com/darbaz/fountis-connect`, or in `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/darbaz/fountis-connect", from: "1.0.0"),
+.package(url: "https://github.com/darbaz/fountis-connect", from: "1.1.0"),
 // and on your target:
 .product(name: "FountisConnect", package: "fountis-connect")
 ```

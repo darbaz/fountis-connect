@@ -1,6 +1,6 @@
 {
   "name": "@fountispanel/connect-react-native",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "FOUNTIS Connect for React Native and Expo (development builds): native iOS and Android SDKs, Web SDK on React Native Web.",
   "license": "SEE LICENSE IN LICENSE",
   "main": "build/index.js",
@@ -35,7 +35,7 @@
     "expo-modules-core": "*",
     "react": "*",
     "react-native": "*",
-    "@fountispanel/connect": "^1.0.0"
+    "@fountispanel/connect": "^1.1.0"
   },
   "peerDependenciesMeta": {
     "@fountispanel/connect": {

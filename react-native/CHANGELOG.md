@@ -1,7 +1,9 @@
 # Changelog
 
-## Unreleased
+## 1.1.0 — 2026-10-19
 
+- Android: guest device check with Google Play Integrity when FOUNTIS asks for it for your app (see the Android SDK changelog). The Android build now depends on `com.google.android.play:integrity:1.6.0`. Link the FOUNTIS Google Cloud project to your app in Play Console (App integrity, Play Integrity API).
+- iOS: guest device attestation with App Attest, from the bundled iOS SDK (see its changelog). If FOUNTIS asks for it on your guests, add the App Attest capability to the iOS app (entitlement `com.apple.developer.devicecheck.appattest-environment`; in Expo `ios.entitlements`). Nothing changes when attestation is off.
 - npm package renamed to `@fountispanel/connect-react-native`. Nothing else changes; install and import it under the new name.
 - Android: every API request now has an overall 15 second deadline (connection, request and the whole response), the same as the Web SDK, so a server that keeps sending a few bytes cannot keep `show()` busy. The failure ends as `noFill` like any network error. This comes from the bundled Android SDK (see its changelog).
 - Docs: the Android minimum now names Android System WebView 88 or later next to API 23 (on an older WebView `show()` returns `noFill`), and the README token example reads the `{ "token": "..." }` reply of the sample server, treating a reply without a token as a failure.

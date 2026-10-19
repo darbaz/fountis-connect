@@ -107,6 +107,23 @@ struct SurveysAppInfo: Codable {
     let name: String?
     /// The app may offer free studies to guests.
     let guests: Bool?
+    /// Device attestation for guests (`off` when absent).
+    let attest: SurveysAttestInfo?
+
+    var attestMode: AttestMode { AttestMode.parse(attest?.mode) }
+}
+
+/// `app.attest` from `/surveys`. Decoding never throws: a field of the wrong type reads as absent (so as `off`), because
+/// a surprise here must not turn every check into `noFill`. Only `mode` matters on iOS (`android_cloud_project` is Android's).
+struct SurveysAttestInfo: Codable {
+    let mode: String?
+
+    private enum CodingKeys: String, CodingKey { case mode }
+
+    init(from decoder: Decoder) throws {
+        let c = try? decoder.container(keyedBy: CodingKeys.self)
+        mode = try? c?.decodeIfPresent(String.self, forKey: .mode)
+    }
 }
 
 struct SurveysResponse: Codable {

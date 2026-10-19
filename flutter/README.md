@@ -26,6 +26,6 @@ flutter run
 ```
 
 CI (`.github/workflows/connect-flutter.yml`) analyzes the packages and builds the example for Android, web and the iOS simulator.
-The packages depend on each other by hosted version (`^1.0.0`, as pub.dev requires). Each `pubspec_overrides.yaml`
+The packages depend on each other by hosted version (`^1.1.0`, as pub.dev requires). Each `pubspec_overrides.yaml`
 points those dependencies at the sibling folders, so everything resolves locally; pub ignores that file when publishing.
 Publishing order is platform_interface, then mobile and web, then `fountis_connect`.

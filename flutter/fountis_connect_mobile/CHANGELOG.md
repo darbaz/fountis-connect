@@ -1,7 +1,9 @@
 # Changelog
 
-## Unreleased
+## 1.1.0 — 2026-10-19
 
+- Android: guest device check with Google Play Integrity when FOUNTIS asks for it for your app (see the Android SDK changelog). The Android build now depends on `com.google.android.play:integrity:1.6.0`. Link the FOUNTIS Google Cloud project to your app in Play Console (App integrity, Play Integrity API).
+- iOS: guest device attestation with App Attest, from the bundled iOS SDK (see its changelog). If FOUNTIS asks for it on your guests, add the App Attest capability to the Runner target (entitlement `com.apple.developer.devicecheck.appattest-environment`). Nothing changes when attestation is off.
 - Android: every API request now has an overall 15 second deadline (connection, request and the whole response), the same as the Web SDK, so a server that keeps sending a few bytes cannot keep `show()` busy. The failure ends as `noFill` like any network error. This comes from the bundled Android SDK (see its changelog).
 - iOS: every API request now ends after 15 s in total, including a slowly trickling response body (was 30 s); the call fails as `noFill`.
 - The bundled survey engine now also closes on the Escape key (hardware keyboard), exactly like its x button (it asks first once something is answered).

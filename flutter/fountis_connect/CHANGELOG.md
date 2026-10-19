@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.1.0 — 2026-10-19
 
 - Docs: the Android minimum now names Android System WebView 88 or later next to minSdk 23 (on an older WebView `show()` returns `noFill`).
 - On web, the Web SDK this plugin loads now gives the study screen its own close button and a load timeout (see the Web SDK changelog).

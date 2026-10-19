@@ -40,7 +40,9 @@ import org.json.JSONObject
  *
  * Guests: when the token provider returns `null` (nobody is signed in) and FOUNTIS has switched guests on for your
  * app, the SDK offers the free studies marked open to guests, after an 18+ confirmation. Nothing to call; an app
- * without accounts can pass `setUserToken { null }`.
+ * without accounts can pass `setUserToken { null }`. When FOUNTIS asks for it, a guest's device is also checked with
+ * Google Play Integrity (link your app to the FOUNTIS Google Cloud project in Play Console); an app installed outside
+ * Google Play works too, the check then just reports that it is unavailable.
  *
  * Every failure is silent and becomes [FountisResult.NoFill] plus a `Log.d` line with the tag `FountisConnect`.
  * The SDK never throws into the host app.
@@ -193,6 +195,11 @@ internal object Core {
     private var notificationsOn = false
     private var lastSubHash: String? = null
     private var guestSession: Pair<String, Long>? = null
+    private var guestAttest: GuestAttestation? = null
+    // Attests (when the app asks for it) and opens the guest session; after a refusal it sends nothing for 10 minutes.
+    private val guestOpener = GuestSessionOpener({ attestation() })
+    // Where Play Integrity is prepared (a few seconds, once per process). Never the main thread, never cancelled.
+    private val attestScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private var resumed: WeakReference<Activity>? = null
     private var webViewOk: Boolean? = null
     private var cache: Cached? = null
@@ -439,15 +446,28 @@ internal object Core {
         val lang = Strings.deviceLang()
         val surveys = fetchSurveys(api, lang)
         if (!surveys.guests || surveys.surveys.none { it.guest }) return null
+        // Get Play Integrity ready early, but only for a guest who can see a study now (not for the background check).
+        if (surveys.attest.isOn && foreground) attestation()?.warmUp(surveys.attest)
         lastSubHash = "guest"
         return Session(api, null, null, lang, surveys, LocalState(st, "guest"))
     }
 
-    /** A guest session token, kept in memory for most of its hour. `force` makes a new one. */
+    /** The Play Integrity side of guest attestation; made only once an app asks for it (mode `report` or `enforce`). */
+    private fun attestation(): GuestAttestation? {
+        val a = app ?: return null
+        return synchronized(this) { guestAttest ?: GuestAttestation(PlayIntegrityAttestor(a), attestScope).also { guestAttest = it } }
+    }
+
+    /**
+     * A guest session token, kept in memory for most of its hour. `force` makes a new one.
+     * Only here, right before a new guest session, the device is attested (when the app's mode asks for it).
+     * After a refusal (403 `attestation_required` / `attestation_failed`) nothing is sent for 10 minutes: every attempt
+     * ends as that refusal, so a device FOUNTIS will turn away again does not spend a Play Integrity token on each show().
+     */
     private suspend fun guestToken(s: Session, force: Boolean = false): String {
         val st = store ?: throw ApiError(0, "not_started", "not started")
         guestSession?.let { if (!force && it.second > System.currentTimeMillis()) return it.first }
-        val t = s.api.guestSession(st.installId())
+        val t = guestOpener.open(s.api, s.surveys.attest, st.installId())
         guestSession = t to (System.currentTimeMillis() + 55 * 60_000L)
         return t
     }
@@ -506,6 +526,11 @@ internal object Core {
                     val a = createAttempt(s, offer.offerId)
                     return present(offer, a, s, act)
                 } catch (e: ApiError) {
+                    if (e.isAttestationRefusal) {
+                        // FOUNTIS could not vouch for this device: no guest studies this time, and no retry.
+                        logd("guest studies not offered: ${e.code}")
+                        return FountisResult.NoFill
+                    }
                     if (e.code == "already_taken") s.state.markTaken(offer.offerId)
                     if (e.code in setOf("already_taken", "not_eligible", "closed", "quota_full", "guests_not_allowed")) continue
                     logd("attempt failed: ${e.code}")

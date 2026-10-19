@@ -68,7 +68,14 @@ internal class Offer(
 
 internal class SurveysConfig(val maxNotificationsPerDay: Int?, val quietHours: List<Int>?, val checkIntervalMinutes: Int?)
 
-internal class SurveysResponse(val appName: String?, val config: SurveysConfig?, val surveys: List<Offer>, val guests: Boolean = false)
+internal class SurveysResponse(
+    val appName: String?,
+    val config: SurveysConfig?,
+    val surveys: List<Offer>,
+    val guests: Boolean = false,
+    /** Device attestation for guest sessions (`app.attest`); off when the server sends nothing. */
+    val attest: AttestConfig = AttestConfig.OFF,
+)
 
 // ---- JSON helpers ----
 
@@ -114,7 +121,16 @@ internal fun parseSurveys(text: String): SurveysResponse {
         offers.add(Offer(id, conds, attrs, o.optIntOrNull("loi_minutes"), reward, o.optStringOrNull("expires_at"), o.optBoolean("guest", false)))
     }
     val app = root.optJSONObject("app")
-    return SurveysResponse(app?.optStringOrNull("name"), cfg, offers, app?.optBoolean("guests", false) ?: false)
+    val attest = app?.optJSONObject("attest")?.let { a ->
+        // The project number is a string on the wire; a bare JSON number is accepted too.
+        val project = when (val p = a.opt("android_cloud_project")) {
+            is String -> p
+            is Number -> p.toLong().toString()
+            else -> null
+        }
+        AttestConfig(a.optString("mode", "off"), project)
+    } ?: AttestConfig.OFF
+    return SurveysResponse(app?.optStringOrNull("name"), cfg, offers, app?.optBoolean("guests", false) ?: false, attest)
 }
 
 internal const val TAG = "FountisConnect"

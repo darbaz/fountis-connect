@@ -87,6 +87,8 @@ final class Core {
     private var forwardingDelegate: ForwardingNotificationDelegate?
     private var lastSubHash: String?
     private var guestSession: (token: String, expires: Date)?
+    /// Device attestation for guest sessions (only used when the app's `app.attest.mode` is `report` or `enforce`).
+    private let guestSessions = GuestSessionMaker(attestor: Attestor())
     private let accentHex = "#5dc0a0"
 
     private init() {
@@ -223,9 +225,10 @@ final class Core {
     }
 
     /// A guest session token, kept in memory for most of its hour. `force` makes a new one.
-    private func guestToken(api: ApiClient, force: Bool = false) async throws -> String {
+    /// A new one is attested when the app asks for it (`app.attest.mode`); with mode `off` or absent attestation is never touched.
+    private func guestToken(_ s: Session, force: Bool = false) async throws -> String {
         if !force, let g = guestSession, g.expires > Date() { return g.token }
-        let t = try await api.guestSession(installId: GuestInstall.id())
+        let t = try await guestSessions.make(api: s.api, mode: s.surveys.app?.attestMode ?? .off, installId: GuestInstall.id())
         guestSession = (t, Date().addingTimeInterval(55 * 60))
         return t
     }
@@ -268,11 +271,11 @@ final class Core {
     /// Starts the attempt for a person with a token or a guest session (a stale guest session is renewed once).
     private func createAttempt(_ s: Session, offerId: String) async throws -> [String: Any] {
         if let token = s.token { return try await s.api.createAttempt(offerId: offerId, token: token, lang: s.lang) }
-        let session = try await guestToken(api: s.api)
+        let session = try await guestToken(s)
         do {
             return try await s.api.createGuestAttempt(offerId: offerId, guestSession: session, lang: s.lang)
         } catch let e as APIError where e.code == "invalid_session" {
-            let fresh = try await guestToken(api: s.api, force: true)
+            let fresh = try await guestToken(s, force: true)
             return try await s.api.createGuestAttempt(offerId: offerId, guestSession: fresh, lang: s.lang)
         }
     }
@@ -311,7 +314,9 @@ final class Core {
                 return await present(offer: offer, attempt: a, session: s)
             } catch let e as APIError {
                 if e.code == "already_taken" { s.state.markTaken(offer.offerId) }
-                if ["already_taken", "not_eligible", "closed", "quota_full", "guests_not_allowed"].contains(e.code) { continue }
+                // The app enforces attestation and this device has none that passes: no guest offers this time, no retry.
+                if e.isAttestationRefusal { fcLog.debug("guest studies not offered: \(e.code)"); return .noFill }
+                if e.skipsToNextOffer { continue }
                 fcLog.debug("attempt failed: \(e.code)")
                 return .noFill
             } catch {

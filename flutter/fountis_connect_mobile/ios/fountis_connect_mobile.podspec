@@ -13,7 +13,7 @@ end
 
 Pod::Spec.new do |s|
   s.name             = 'fountis_connect_mobile'
-  s.version          = '1.0.0'
+  s.version          = '1.1.0'
   s.summary          = 'FOUNTIS Connect for Flutter (iOS).'
   s.description      = 'Wraps the native FOUNTIS Connect Swift SDK.'
   s.homepage         = 'https://github.com/darbaz/fountis-connect'

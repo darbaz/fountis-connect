@@ -1,7 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.1.0 — 2026-10-19
 
+- Guest device check with Google Play Integrity (Standard API). When FOUNTIS asks for it for your app (attestation mode `report` or `enforce`), the request for a guest session carries an integrity token, or a code saying why the device could not attest (`unsupported`, `timeout`, `error`, `no_cloud_project`). Link the FOUNTIS Google Cloud project to your app in Play Console (App integrity, Play Integrity API); FOUNTIS gives you the project number. Mode `off` (the default) never starts Play Integrity. Signed-in users are not checked. All steps share a 10 second cap. When FOUNTIS refuses the guest session (`attestation_required` or `attestation_failed`), `show()` returns `NoFill` and no guest study is offered, and the SDK does not attest or ask for a guest session again for 10 minutes. Apps installed outside Google Play keep working: the check reports that it is unavailable. New dependency `com.google.android.play:integrity:1.6.0`. New README.
 - Every API request now has an overall 15 second deadline (connection, request and the whole response), the same as the Web SDK. Before, the 20 second limit applied to each read, so a server that kept sending a few bytes could keep `show()` busy for as long as it liked. When the deadline passes, `show()` ends as `NoFill` like any network failure and the next `show()` works normally. Cancelling the coroutine that called `show()` now also stops its request at once.
 - The bundled survey engine now also closes on the Escape key (hardware keyboard), exactly like its x button (it asks first once something is answered).
 - The bundled survey engine's "leave?" card (shown when the x is pressed after answering) now moves keyboard focus to Stay when it opens, keeps the screen behind it out of reach of Tab and screen readers (where the WebView supports `inert`), and puts focus back where it was when you stay.

@@ -78,6 +78,8 @@ Notes:
 - The token function runs in JavaScript. A background check that wakes the app without JavaScript running gets no answer
   and does nothing; checks work while the app is open or recently used, and the study also appears on app open.
 - **Guests:** when the token function returns `null` and FOUNTIS has switched guests on for your app (adult-only apps only), the SDK offers the free studies marked open to guests, after an 18+ confirmation. There is nothing to call; an app without accounts can pass `setUserToken(() => null)`. Guests never see a reward. If your token request fails, throw instead of returning `null`, so a signed-in person is not shown guest studies.
+- **Android guest device check:** when FOUNTIS asks for it, an Android guest's device is checked with Google Play Integrity before the guest session starts. Link the FOUNTIS Google Cloud project to your app in Play Console (App integrity, Play Integrity API); FOUNTIS gives you the project number. Nothing to call, and signed-in users are not checked. See the Android SDK README.
+- **Guest attestation (iOS):** if FOUNTIS asks for device attestation on your guests, add the App Attest capability to the iOS app (entitlement `com.apple.developer.devicecheck.appattest-environment` = `production`; in Expo set it under `ios.entitlements`). There is nothing to call.
 - On the web, `enableNotifications()` turns on the in-page invitation, and `handlePush` always resolves `false`.
 - `start` also takes `engineUrl` on the web, to point at another hosted engine.
 

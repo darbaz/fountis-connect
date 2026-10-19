@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.1.0 — 2026-10-19
 
 - npm package renamed to `@fountispanel/connect-server`. Nothing else changes; install and import it under the new name.
 - `applyMapping` leaves out a `governorate` or `city` that is not a FOUNTIS location code (lower-case code such as `erbil`), also when the rule has no `values` table; FOUNTIS refuses such values with `422 invalid_attribute`, so one unmapped city no longer costs the user their token.

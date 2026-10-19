@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.1.0 — 2026-10-19
 
 - npm package renamed to `@fountispanel/connect`. Nothing else changes; install and import it under the new name.
 - The study screen can always be left. It now has its own close button outside the iframe (labelled in the study's language, focused when the screen opens) and handles Escape on the host page, so a study page that is still loading, or never loads, no longer leaves the person stuck. The engine's own close button takes over once the page is up.

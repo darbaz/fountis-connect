@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "org.fountis"
-version = "1.0.0"
+version = "1.1.0"
 
 android {
     namespace = "org.fountis.connect"
@@ -60,6 +60,9 @@ dependencies {
     implementation("androidx.webkit:webkit:1.12.1")
     implementation("androidx.lifecycle:lifecycle-process:2.8.7")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+    // Device attestation for guests (Standard API). Only started for an app whose attestation mode is report or enforce.
+    // If you change this version, change it in react-native/android/build.gradle and flutter/fountis_connect_mobile/android/build.gradle too.
+    implementation("com.google.android.play:integrity:1.6.0")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")

@@ -1,6 +1,6 @@
 {
   "name": "@fountispanel/connect",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "FOUNTIS Connect web SDK: show partner users a short study teaser and run it in a modal.",
   "license": "SEE LICENSE IN LICENSE",
   "type": "module",

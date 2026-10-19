@@ -21,7 +21,7 @@ FountisConnect.enableNotifications(); // in-page invitation after page load
 Or load the browser bundle with a script tag (use the SRI hash printed by the release):
 
 ```html
-<script src="https://cdn.fountis.org/connect/1.0.0/connect.js" integrity="sha384-..." crossorigin="anonymous"></script>
+<script src="https://cdn.fountis.org/connect/1.1.0/connect.js" integrity="sha384-..." crossorigin="anonymous"></script>
 ```
 
 The API has the same names as the native SDKs: `start`, `setUserToken`, `enableNotifications`, `show`,

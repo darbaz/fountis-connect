@@ -15,7 +15,7 @@ SDK through `dart:js_interop`. The API has the same names as every other FOUNTIS
 
 ```yaml
 dependencies:
-  fountis_connect: ^1.0.0
+  fountis_connect: ^1.1.0
 ```
 
 **iOS** (15 or later). In `Info.plist` add:
@@ -30,13 +30,15 @@ The first two are for the background check (optional). `FountisConnectKey` (your
 SDK start while the app launches, which iOS requires for background checks. Without the key, `start()` from Dart still
 works while the app is open.
 
+If FOUNTIS asks for device attestation on your guests, add the **App Attest** capability to the Runner target in Xcode (entitlement `com.apple.developer.devicecheck.appattest-environment` = `production`); there is nothing to call from Dart.
+
 **Android** (minSdk 23, and Android System WebView 88 or later: on an older WebView `show()` returns `noFill`). Nothing to add: the permissions and the survey screen come with the plugin. Optionally add
 `<meta-data android:name="org.fountis.connect.KEY" android:value="pk_live_..."/>` to start the SDK with the engine.
 
 **Web.** Add the script to `web/index.html` (the plugin loads it for you if you forget):
 
 ```html
-<script src="https://cdn.fountis.org/connect/1.0.0/connect.js"></script>
+<script src="https://cdn.fountis.org/connect/1.1.0/connect.js"></script>
 ```
 
 ## Use

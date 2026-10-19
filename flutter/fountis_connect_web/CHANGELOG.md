@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0 — 2026-10-19
+
+Version aligned with the other FOUNTIS Connect packages; no changes.
+
 ## 1.0.0
 
 First stable release of `fountis_connect_web`.
