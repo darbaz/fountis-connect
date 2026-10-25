@@ -1,4 +1,0 @@
-# Copies of the native SDKs: made by the podspec (iOS) and by scripts/vendor-native.sh (pub publish).
-ios/FountisConnectSDK/
-android/connect-sdk/
-.dart_tool/

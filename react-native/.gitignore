@@ -1,4 +1,0 @@
-node_modules/
-# Copies of the native SDKs: ios/FountisConnectSDK is made by the podspec (and by npm pack), android/connect-sdk by npm pack.
-ios/FountisConnectSDK/
-android/connect-sdk/

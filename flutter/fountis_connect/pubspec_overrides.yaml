@@ -1,9 +1,0 @@
-# Local development only: resolves the sibling packages from this repository.
-# pub ignores this file when publishing; the published pubspec uses the hosted versions.
-dependency_overrides:
-  fountis_connect_platform_interface:
-    path: ../fountis_connect_platform_interface
-  fountis_connect_mobile:
-    path: ../fountis_connect_mobile
-  fountis_connect_web:
-    path: ../fountis_connect_web

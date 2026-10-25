@@ -1,7 +1,7 @@
 // swift-tools-version:5.9
-// Root manifest of the public FOUNTIS Connect repository, so that
-//   .package(url: "https://github.com/darbaz/fountis-connect", from: "1.0.0")
-// works. It mirrors ios/Package.swift (kept for the local sample app); the export script fails if the two drift apart.
+// FOUNTIS Connect for iOS. The library is a prebuilt XCFramework that Swift Package Manager downloads from this
+// repository's release assets and checks against the checksum below.
+//   .package(url: "https://github.com/darbaz/fountis-connect", from: "1.2.0")
 import PackageDescription
 
 let package = Package(
@@ -11,19 +11,10 @@ let package = Package(
         .library(name: "FountisConnect", targets: ["FountisConnect"]),
     ],
     targets: [
-        .target(
+        .binaryTarget(
             name: "FountisConnect",
-            path: "ios/Sources/FountisConnect",
-            resources: [
-                .process("PrivacyInfo.xcprivacy"),
-                // engine.html and the notification strings (i18n/*.json)
-                .copy("Engine"),
-            ]
-        ),
-        .testTarget(
-            name: "FountisConnectTests",
-            dependencies: ["FountisConnect"],
-            path: "ios/Tests/FountisConnectTests"
+            url: "https://github.com/darbaz/fountis-connect/releases/download/1.2.0/FountisConnect.xcframework.zip",
+            checksum: "1d70b430b891895a13eff2b4712b9318ceda438ee135fe7304df8208e7a62ddc"
         ),
     ]
 )

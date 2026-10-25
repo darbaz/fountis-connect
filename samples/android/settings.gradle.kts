@@ -14,9 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "fountis-connect-android"
+rootProject.name = "fountis-connect-sample-android"
 
-include(":connect")
-// The sample lives next to the other samples; it is built with this same Gradle build.
-include(":sample")
-project(":sample").projectDir = file("../samples/android/app")
+include(":app")

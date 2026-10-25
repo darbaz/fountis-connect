@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 python3 - <<'PY'
 import json, os
 keys = "../.sandbox-keys.local.json"
-key, base = "pk_test_PASTE_YOUR_SANDBOX_KEY", "https://ucclsekjekdxzfwzyuji.supabase.co/functions/v1/connect-api/v1"
+key, base = "pk_test_PASTE_YOUR_SANDBOX_KEY", "https://api.fountis.org/connect/v1"
 if os.path.exists(keys):
     d = json.load(open(keys))
     key = d["apps"]["app_demo_ios"]["test_key"]

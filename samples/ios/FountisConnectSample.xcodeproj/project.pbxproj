@@ -183,9 +183,9 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		00399ED3B3FA2FCA129B1CCE /* XCLocalSwiftPackageReference "../../ios" */ = {
+		00399ED3B3FA2FCA129B1CCE /* XCLocalSwiftPackageReference "../.." */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../ios;
+			relativePath = ../..;
 		};
 		2BAFBE90D711F96380E9193E /* FountisConnect */ = {
 			isa = XCSwiftPackageProductDependency;

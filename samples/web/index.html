@@ -27,8 +27,8 @@
 <script>
   if (!window.FOUNTIS_SAMPLE) document.getElementById("log").textContent = "Copy config.example.js to config.local.js and set your sandbox key.";
 </script>
-<!-- Local build of the SDK; in a real page use the hosted file or npm i @fountispanel/connect -->
-<script src="../../web/dist/connect.js"></script>
+<!-- The hosted SDK file; or npm i @fountispanel/connect -->
+<script src="https://cdn.fountis.org/connect/1.2.0/connect.js"></script>
 <script>
   const cfg = window.FOUNTIS_SAMPLE;
   if (cfg) {

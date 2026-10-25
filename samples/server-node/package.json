@@ -3,5 +3,5 @@
   "private": true,
   "type": "module",
   "scripts": { "start": "node server.mjs" },
-  "dependencies": { "@fountispanel/connect-server": "file:../../server/node" }
+  "dependencies": { "@fountispanel/connect-server": "^1.2.0" }
 }

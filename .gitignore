@@ -6,3 +6,5 @@ samples/.sandbox-keys.local.json
 *.local.json
 .build/
 .swiftpm/
+# Build outputs (XCFramework, public export dry runs)
+/dist/

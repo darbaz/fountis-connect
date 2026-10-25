@@ -28,7 +28,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         buildConfigField("String", "SANDBOX_KEY", "\"${localProp("fountis.sandboxKey") ?: "pk_test_PASTE_YOUR_SANDBOX_KEY"}\"")
-        buildConfigField("String", "API_BASE", "\"${localProp("fountis.apiBase") ?: "https://ucclsekjekdxzfwzyuji.supabase.co/functions/v1/connect-api/v1"}\"")
+        buildConfigField("String", "API_BASE", "\"${localProp("fountis.apiBase") ?: "https://api.fountis.org/connect/v1"}\"")
     }
 
     buildFeatures {
@@ -48,7 +48,7 @@ kotlin {
 }
 
 dependencies {
-    implementation(project(":connect"))
+    implementation("org.fountis:connect:1.2.0")
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 }
