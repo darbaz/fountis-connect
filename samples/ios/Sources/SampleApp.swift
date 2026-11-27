@@ -5,6 +5,7 @@ import FountisConnect
 struct SampleApp: App {
     init() {
         // At launch, before the app finishes launching: this also registers the background refresh task.
+        // The look of the study (colour, name, logo, corners, light or dark) is set per app in the FOUNTIS console.
         FountisConnect.start(key: SampleConfig.key, apiBase: URL(string: SampleConfig.apiBase))
         FountisConnect.setUserToken { await SampleSession.shared.token() }
         FountisConnect.enableNotifications()

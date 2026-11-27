@@ -28,7 +28,7 @@
   if (!window.FOUNTIS_SAMPLE) document.getElementById("log").textContent = "Copy config.example.js to config.local.js and set your sandbox key.";
 </script>
 <!-- The hosted SDK file; or npm i @fountispanel/connect -->
-<script src="https://cdn.fountis.org/connect/1.2.0/connect.js"></script>
+<script src="https://cdn.fountis.org/connect/1.4.0/connect.js"></script>
 <script>
   const cfg = window.FOUNTIS_SAMPLE;
   if (cfg) {
@@ -50,6 +50,8 @@
     const opts = { key: cfg.key };
     if (cfg.apiBase) opts.apiBase = cfg.apiBase;
     if (cfg.engineUrl) opts.engineUrl = cfg.engineUrl;
+    // Optional: override the look FOUNTIS set for this app in the console. Your values win.
+    // opts.appearance = { brand: "#0a5cff", position: "bottom-left", size: "compact", survey: "fullscreen", corners: "soft", scheme: "light" };
     FountisConnect.start(opts);
     FountisConnect.setUserToken(() => sandboxToken());
     FountisConnect.onEvent((e) => log(JSON.stringify(e)));

@@ -33,6 +33,7 @@ export default function App() {
   const add = (m: string) => setLog((l) => [m, ...l].slice(0, 30));
 
   useEffect(() => {
+    // The look of the study (colour, name, logo, corners, light or dark) is set per app in the FOUNTIS console.
     Fountis.start({ key: 'pk_test_REPLACE_ME' });
     Fountis.setUserToken(async () => sandboxToken());
     const off = Fountis.onEvent((e) => add(JSON.stringify(e)));

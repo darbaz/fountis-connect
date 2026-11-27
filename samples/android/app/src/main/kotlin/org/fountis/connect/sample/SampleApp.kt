@@ -10,6 +10,7 @@ class SampleApp : Application() {
     override fun onCreate() {
         super.onCreate()
         // At launch, from Application.onCreate: this also lets the background check work when the system starts the process.
+        // The look of the study (colour, name, logo, corners, light or dark) is set per app in the FOUNTIS console.
         FountisConnect.start(this, BuildConfig.SANDBOX_KEY, BuildConfig.API_BASE)
         FountisConnect.setUserToken { SampleSession.token() }
     }

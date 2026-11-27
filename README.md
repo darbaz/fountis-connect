@@ -2,7 +2,7 @@
 
 FOUNTIS Connect lets partner apps and websites show FOUNTIS research studies to the people who match, inside the
 partner's own app. This repository is the Swift Package Manager address of the iOS SDK and holds the sample apps for
-every platform. Current release: **1.2.0**.
+every platform. Current release: **1.4.0**.
 
 Overview and partner access: https://fountis.org/connect/docs
 
@@ -11,7 +11,7 @@ Overview and partner access: https://fountis.org/connect/docs
 | Platform | Install |
 |---|---|
 | iOS | Swift Package Manager: `https://github.com/darbaz/fountis-connect`, product `FountisConnect`. iOS 15 or later. |
-| Android | `org.fountis:connect:1.2.0` from Maven Central ([artifact](https://central.sonatype.com/artifact/org.fountis/connect)). |
+| Android | `org.fountis:connect:1.4.0` from Maven Central ([artifact](https://central.sonatype.com/artifact/org.fountis/connect)). |
 | Flutter | `flutter pub add fountis_connect` ([pub.dev](https://pub.dev/packages/fountis_connect)). |
 | React Native / Expo | `npm i @fountispanel/connect-react-native` ([npm](https://www.npmjs.com/package/@fountispanel/connect-react-native)). |
 | Web | `npm i @fountispanel/connect` ([npm](https://www.npmjs.com/package/@fountispanel/connect)), or the script tag from `cdn.fountis.org`. |
@@ -23,7 +23,7 @@ In Xcode choose File > Add Package Dependencies, enter `https://github.com/darba
 `FountisConnect`. Or in your own `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/darbaz/fountis-connect", from: "1.2.0"),
+.package(url: "https://github.com/darbaz/fountis-connect", from: "1.4.0"),
 // and on your target:
 .product(name: "FountisConnect", package: "fountis-connect")
 ```
